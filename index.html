@@ -190,10 +190,11 @@ body.docked #nav ul{opacity:0;transform:translateY(-12px);pointer-events:none}
 .poster{position:relative;aspect-ratio:4/5;width:min(100%,calc(76vh*.8));justify-self:center;background:var(--card);border:1px solid var(--line);box-shadow:0 30px 80px -40px rgba(22,22,22,.35)}
 .poster canvas{position:absolute;inset:0;width:100%;height:100%}
 .composer{display:flex;flex-direction:column;gap:30px;padding-top:8px}
-.field{display:flex;align-items:flex-end;gap:12px;font-family:var(--serif);font-size:clamp(44px,4.4vw,72px);line-height:1;padding-bottom:10px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
+.field{display:flex;align-items:center;gap:12px;font-family:var(--fill);font-size:clamp(44px,4.4vw,72px);line-height:1;padding-bottom:10px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
 .field:focus-within{border-color:var(--ink)}
-.field .h{width:.9em;height:.8em;margin:0 .02em .08em}
-.field input{flex:1;min-width:0;width:100%;font-family:var(--fill);font-weight:400;letter-spacing:0;font-size:.86em;line-height:1;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0}
+.field>span{font-size:.86em;line-height:1.3}
+.field .h{flex:none;width:.9em;height:.8em;margin:0 .02em}
+.field input{flex:1;min-width:0;width:100%;font-family:var(--fill);font-weight:400;letter-spacing:0;font-size:.86em;line-height:1.3;height:1.3em;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0;overflow:visible}
 .field input::placeholder{color:#C9C5BE;text-transform:none}
 .field .add{flex:none;align-self:center;height:44px;padding:0 18px;border-radius:999px;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--ink);color:#fff;transition:opacity .3s,background .3s}
 .field .add:disabled{opacity:.25;cursor:default}
@@ -806,8 +807,10 @@ function renderChips(){
   $('#lineCnt').textContent=ws.length?`(${ws.length}/6)`:'';
 }
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('button[data-w]');if(!b)return;const w=b.dataset.w;const ci=custom.lastIndexOf(w);if(ci>=0)custom.splice(ci,1);else removed.add(w);renderChips();drawPoster(true);});
-$('#inp').addEventListener('input',()=>{$('#addBtn').disabled=!$('#inp').value.trim();drawPoster(true);});
-$('#field').addEventListener('submit',e=>{e.preventDefault();const v=$('#inp').value.trim().toUpperCase().replace(/\s+/g,' ');if(!v)return;custom.push(v);removed.delete(v);$('#inp').value='';$('#addBtn').disabled=true;renderChips();drawPoster(true);});
+function fitInp(){const i=$('#inp');i.style.fontSize='';let s=.86;while(i.scrollWidth>i.clientWidth+1&&s>.42){s-=.03;i.style.fontSize=s+'em';}}
+$('#inp').addEventListener('input',()=>{fitInp();$('#addBtn').disabled=!$('#inp').value.trim();drawPoster(true);});
+addEventListener('resize',fitInp);
+$('#field').addEventListener('submit',e=>{e.preventDefault();const v=$('#inp').value.trim().toUpperCase().replace(/\s+/g,' ');if(!v)return;custom.push(v);removed.delete(v);$('#inp').value='';fitInp();$('#addBtn').disabled=true;renderChips();drawPoster(true);});
 const STY=[['glaser','Gradient','Glaser palette'],['dylan','Bands','Dylan, 1967'],['original','Original','I ♥ NY, 1977']];
 $('#styles').innerHTML=STY.map(([k,a,b])=>`<button data-s="${k}" class="${k===style?'on':''}"><canvas width="88" height="80"></canvas><b>${a}</b><span>${b}</span></button>`).join('');
 $$('#styles button').forEach(b=>{const c=b.querySelector('canvas').getContext('2d');drawHeart(c,4,4,80,b.dataset.s,1.2);
