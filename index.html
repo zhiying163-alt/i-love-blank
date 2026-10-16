@@ -20,6 +20,7 @@
   --grad:linear-gradient(135deg,#FFA23A 0%,#EE2722 48%,#E8418F 100%);
   --serif:"Instrument Serif",Georgia,serif;
   --type:"American Typewriter","Courier Prime","Pretendard",serif;
+  --fill:"Pretendard", sans-serif;
   --sans:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   --ease:cubic-bezier(.65,0,.35,1); --out:cubic-bezier(.16,1,.3,1);
   --gut:clamp(20px,3.2vw,48px);
@@ -191,20 +192,20 @@ body.docked #nav ul{opacity:0;transform:translateY(-12px);pointer-events:none}
 .field{display:flex;align-items:flex-end;gap:12px;font-family:var(--serif);font-size:clamp(44px,4.4vw,72px);line-height:1;padding-bottom:10px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
 .field:focus-within{border-color:var(--ink)}
 .field .h{width:.9em;height:.8em;margin:0 .02em .08em}
-.field input{flex:1;min-width:0;width:100%;font-family:var(--type);font-weight:700;letter-spacing:-.01em;font-size:.86em;line-height:1;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0}
+.field input{flex:1;min-width:0;width:100%;font-family:var(--fill);font-weight:200;letter-spacing:0;font-size:.86em;line-height:1;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0}
 .field input::placeholder{color:#C9C5BE;text-transform:none}
 .field .add{flex:none;align-self:center;height:44px;padding:0 18px;border-radius:999px;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--ink);color:#fff;transition:opacity .3s,background .3s}
 .field .add:disabled{opacity:.25;cursor:default}
 .sub-l{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;min-height:40px}
 .chips .empty{font-size:14px;color:var(--gray);align-self:center}
-.chip2{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line-2);font-family:var(--type);font-weight:700;font-size:16px;line-height:1;animation:pop .5s var(--out)}
+.chip2{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line-2);font-family:var(--fill);font-weight:300;font-size:17px;line-height:1;animation:pop .5s var(--out)}
 .chip2 button{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:14px;color:var(--muted);transition:background .3s,color .3s}
 .chip2 button:hover{background:var(--ink);color:#fff}
 @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
 .no-at .field input,.no-at .chip2{-webkit-text-stroke:.03em currentColor}
 .tfnote{font-size:14px;line-height:1.6;color:var(--muted)}
-.tfnote b{font-family:var(--type);font-weight:700;color:var(--ink);font-size:16px}
+.tfnote b{font-family:var(--sans);font-weight:600;color:var(--ink);font-size:16px}
 .styles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .styles button{display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--line);background:var(--card);text-align:left;transition:box-shadow .3s,background .3s}
 .styles button:hover{box-shadow:inset 0 0 0 1px var(--line-2)}
@@ -337,7 +338,7 @@ footer{position:relative;padding:clamp(90px,14vh,170px) var(--gut) 34px;overflow
       </div>
       <div>
         <div class="sub-l">Type</div>
-        <p class="tfnote" id="tfNote"></p>
+        <p class="tfnote" id="tfNote"><b>Pretendard ExtraLight</b><br>I ♥는 원작 로고 그대로 두고, 빈칸에 들어가는 단어만 가늘고 좁게 그린다.</p>
       </div>
       <div class="acts">
         <button class="btn" id="bWall">벽에 붙이기 <span class="arr">→</span></button>
@@ -622,11 +623,11 @@ function renderPoster(ctx,W,H,words,st,t,opt={}){
     drawHeart(ctx,lx+lw*(.642-.476/2),ly+lw*(9.4/300),lw*.476,st,t);
   } else {
     // geometry taken from the 1977 logo: NY spans x 10–285, I 38–107, heart 121–264, row height 127, line gap 11.5
-    const TF=typeFont(), font=f=>`${TF.w} ${f}px ${TF.stack}`, INK='#1E1B1C';
+    const TF={w:200,stack:'"Pretendard", sans-serif',sx:0.8}, font=f=>`${TF.w} ${f}px ${TF.stack}`, INK='#1E1B1C';
     ctx.textBaseline='alphabetic';
     const u0=iw/275, capMax=120.3*u0;
-    const ms=words.map(w=>{ctx.font=font(100);const m=ctx.measureText(w);const ink=(m.actualBoundingBoxLeft+m.actualBoundingBoxRight)||m.width;const asc=m.actualBoundingBoxAscent||70;
-      let fs=100*iw/ink,cap=asc*fs/100;if(cap>capMax){fs*=capMax/cap;cap=capMax;}return{w,fs,cap,left:m.actualBoundingBoxLeft*fs/100,ink:ink*fs/100};});
+    const ms=words.map(w=>{ctx.font=font(100);const m=ctx.measureText(w);const ink=((m.actualBoundingBoxLeft+m.actualBoundingBoxRight)||m.width)*TF.sx;const asc=m.actualBoundingBoxAscent||70;
+      let fs=100*iw/ink,cap=asc*fs/100;if(cap>capMax){fs*=capMax/cap;cap=capMax;}return{w,fs,cap,left:m.actualBoundingBoxLeft*TF.sx*fs/100,ink:ink*fs/100};});
     const gap=11.5*u0,row=127*u0,total=row+ms.reduce((a,m)=>a+gap+m.cap,0),k=Math.min(1,ih/total);
     const cw=iw*k,cx=(W-cw)/2,u=u0*k;let y=oy+(ih-total*k)/2;
     ctx.save();ctx.translate(cx-10*u,y-9.4*u);ctx.scale(u,u);ctx.translate(-142.17965,-482.1599);ctx.transform(3.3585339,0,0,-3.3585339,-739.73276,3051.5178);ctx.transform(83.36971,0,0,77.42294,265.566,684.837);ctx.fillStyle=INK;ctx.fill(new Path2D(D_I));ctx.restore();
@@ -634,8 +635,7 @@ function renderPoster(ctx,W,H,words,st,t,opt={}){
     y+=row*k;
     ms.forEach((m,n)=>{const f=m.fs*k;y+=gap*k+m.cap*k;ctx.font=font(f);const x0=cx+(cw-m.ink*k)/2+m.left*k;
       ctx.fillStyle=(opt.ghost&&n===ms.length-1)?'#BDB8B0':INK;
-      if(TF.thick){ctx.lineJoin='round';ctx.lineWidth=f*.05;ctx.strokeStyle=ctx.fillStyle;ctx.strokeText(m.w,x0,y);}
-      ctx.fillText(m.w,x0,y);});
+      ctx.save();ctx.translate(x0,y);ctx.scale(TF.sx,1);ctx.fillText(m.w,0,0);ctx.restore();});
   }
   if(!opt.noCap){ctx.font=`500 ${Math.round(W*.0165)}px Pretendard, system-ui, sans-serif`;ctx.fillStyle='#8C8882';ctx.textAlign='left';ctx.fillText(opt.capL||'AFTER MILTON GLASER, I ♥ NY (1977)',ox,H-H*.05);ctx.textAlign='right';ctx.fillText(opt.capR||'I ♥ ___',W-ox,H-H*.05);}
   ctx.restore();
