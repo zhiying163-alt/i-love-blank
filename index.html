@@ -12,6 +12,7 @@
 @font-face{font-family:"Instrument Serif";src:url(assets/fonts/instrument-serif-regular.woff2) format("woff2");font-weight:400;font-style:normal;font-display:block}
 @font-face{font-family:"Instrument Serif";src:url(assets/fonts/instrument-serif-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:block}
 @font-face{font-family:"Courier Prime";src:url(assets/fonts/courier-prime-bold.woff2) format("woff2");font-weight:700;font-style:normal;font-display:block}
+@font-face{font-family:"Cutive";src:url(assets/fonts/cutive-regular.woff2) format("woff2");font-weight:400;font-style:normal;font-display:block}
 @font-face{font-family:"Pretendard";src:url(assets/fonts/pretendard-variable.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:block}
 
 :root{
@@ -20,7 +21,7 @@
   --grad:linear-gradient(135deg,#FFA23A 0%,#EE2722 48%,#E8418F 100%);
   --serif:"Instrument Serif",Georgia,serif;
   --type:"American Typewriter","Courier Prime","Pretendard",serif;
-  --fill:"Pretendard", sans-serif;
+  --fill:"Cutive", "Pretendard", serif;
   --sans:"Pretendard",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
   --ease:cubic-bezier(.65,0,.35,1); --out:cubic-bezier(.16,1,.3,1);
   --gut:clamp(20px,3.2vw,48px);
@@ -192,14 +193,14 @@ body.docked #nav ul{opacity:0;transform:translateY(-12px);pointer-events:none}
 .field{display:flex;align-items:flex-end;gap:12px;font-family:var(--serif);font-size:clamp(44px,4.4vw,72px);line-height:1;padding-bottom:10px;border-bottom:1px solid var(--line-2);transition:border-color .3s}
 .field:focus-within{border-color:var(--ink)}
 .field .h{width:.9em;height:.8em;margin:0 .02em .08em}
-.field input{flex:1;min-width:0;width:100%;font-family:var(--fill);font-weight:200;letter-spacing:0;font-size:.86em;line-height:1;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0}
+.field input{flex:1;min-width:0;width:100%;font-family:var(--fill);font-weight:400;letter-spacing:0;font-size:.86em;line-height:1;text-transform:uppercase;outline:none;caret-color:var(--red);padding:0}
 .field input::placeholder{color:#C9C5BE;text-transform:none}
 .field .add{flex:none;align-self:center;height:44px;padding:0 18px;border-radius:999px;font-family:var(--sans);font-size:13px;font-weight:500;background:var(--ink);color:#fff;transition:opacity .3s,background .3s}
 .field .add:disabled{opacity:.25;cursor:default}
 .sub-l{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;min-height:40px}
 .chips .empty{font-size:14px;color:var(--gray);align-self:center}
-.chip2{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line-2);font-family:var(--fill);font-weight:300;font-size:17px;line-height:1;animation:pop .5s var(--out)}
+.chip2{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 6px 0 16px;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1px var(--line-2);font-family:var(--fill);font-weight:400;font-size:17px;line-height:1;animation:pop .5s var(--out)}
 .chip2 button{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-family:var(--sans);font-size:14px;color:var(--muted);transition:background .3s,color .3s}
 .chip2 button:hover{background:var(--ink);color:#fff}
 @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
@@ -325,7 +326,7 @@ footer{position:relative;padding:clamp(90px,14vh,170px) var(--gut) 34px;overflow
     <div class="composer" data-reveal>
       <form class="field" id="field" autocomplete="off">
         <span>I</span><i class="h"></i>
-        <input id="inp" size="1" maxlength="16" placeholder="좋아하는 것" aria-label="I love 다음에 들어갈 단어">
+        <input id="inp" size="1" maxlength="16" placeholder="SOMETHING" aria-label="I love 다음에 들어갈 단어">
         <button class="add" id="addBtn" type="submit" disabled>추가</button>
       </form>
       <div>
@@ -338,7 +339,7 @@ footer{position:relative;padding:clamp(90px,14vh,170px) var(--gut) 34px;overflow
       </div>
       <div>
         <div class="sub-l">Type</div>
-        <p class="tfnote" id="tfNote"><b>Pretendard ExtraLight</b><br>I ♥는 원작 로고 그대로 두고, 빈칸에 들어가는 단어만 가늘고 좁게 그린다.</p>
+        <p class="tfnote" id="tfNote"><b>Cutive</b><br>원작 서체 American Typewriter와 닮은 타자기 서체. I ♥는 원작 그대로 두고, 빈칸 단어만 가늘고 좁게 그린다.</p>
       </div>
       <div class="acts">
         <button class="btn" id="bWall">벽에 붙이기 <span class="arr">→</span></button>
@@ -623,7 +624,7 @@ function renderPoster(ctx,W,H,words,st,t,opt={}){
     drawHeart(ctx,lx+lw*(.642-.476/2),ly+lw*(9.4/300),lw*.476,st,t);
   } else {
     // geometry taken from the 1977 logo: NY spans x 10–285, I 38–107, heart 121–264, row height 127, line gap 11.5
-    const TF={w:200,stack:'"Pretendard", sans-serif',sx:0.8}, font=f=>`${TF.w} ${f}px ${TF.stack}`, INK='#1E1B1C';
+    const TF={w:400,stack:'"Cutive", "Pretendard", serif',sx:0.82}, font=f=>`${TF.w} ${f}px ${TF.stack}`, INK='#1E1B1C';
     ctx.textBaseline='alphabetic';
     const u0=iw/275, capMax=120.3*u0;
     const ms=words.map(w=>{ctx.font=font(100);const m=ctx.measureText(w);const ink=((m.actualBoundingBoxLeft+m.actualBoundingBoxRight)||m.width)*TF.sx;const asc=m.actualBoundingBoxAscent||70;
@@ -831,7 +832,7 @@ $('#bWall').onclick=()=>{
   const dt=new Date();wall.push({w:words,s:style,d:`${dt.getMonth()+1}.${dt.getDate()}`});save(wall);renderWall(wall.length-1);
   const y=$('#wall').getBoundingClientRect().top+scrollY-40;lenis.scrollTo(y,{duration:1.4,easing:ez});toast('벽에 붙였습니다');
 };
-$('#bSave').onclick=async()=>{try{await document.fonts.load('700 100px "Courier Prime"');}catch(e){}
+$('#bSave').onclick=async()=>{try{await document.fonts.load('400 100px "Cutive"');}catch(e){}
   const c=document.createElement('canvas');c.width=1080;c.height=1350;const ws=posterWords();const typed=$('#inp').value.trim().toUpperCase();
   renderPoster(c.getContext('2d'),1080,1350,typed?ws.concat(typed).slice(-6):ws,style,(performance.now()-t0)/1000);
   const a=document.createElement('a');a.download='i-love-blank.png';a.href=c.toDataURL('image/png');document.body.appendChild(a);a.click();a.remove();toast('PNG로 저장했습니다');};
@@ -859,7 +860,7 @@ const heroC=heroColorImg();
 /* ================= boot ================= */
 const imgs=[...document.images,heroC];let done=0;
 const setP=v=>{$('#ldPct').textContent=Math.round(v*100)+'%';const r=$('#lcr');r.setAttribute('height',38.2*v);r.setAttribute('y',-39.5-38.2*v);};
-const ready=Promise.all([document.fonts.ready,document.fonts.load('700 40px "Courier Prime"').catch(()=>{}),...imgs.map(im=>(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>{done++;setP(done/imgs.length*.95);}))]);
+const ready=Promise.all([document.fonts.ready,document.fonts.load('700 40px "Courier Prime"').catch(()=>{}),document.fonts.load('400 40px "Cutive"').catch(()=>{}),...imgs.map(im=>(im.decode?im.decode():Promise.resolve()).catch(()=>{}).then(()=>{done++;setP(done/imgs.length*.95);}))]);
 Promise.all([ready,new Promise(r=>setTimeout(r,800))]).then(()=>{
   setP(1);
   layoutPlaces();buildColorScenes();setupHero();setupPlaces();setupReveals();setupNav();setupFoot();setupPoster();layoutFoot();

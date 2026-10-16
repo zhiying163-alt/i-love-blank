@@ -20,7 +20,7 @@
 ```
 index.html
 assets/
-  fonts/   Instrument Serif, Courier Prime, Pretendard (woff2)
+  fonts/   Instrument Serif, Courier Prime, Cutive, Pretendard (woff2)
   img/     장면별 에칭·컬러 이미지(webp), 파비콘
 .nojekyll
 ```
@@ -44,6 +44,7 @@ python3 -m http.server 8000
 
 - Instrument Serif, Courier Prime: SIL Open Font License 1.1
 - Pretendard: SIL Open Font License 1.1
+- Cutive: SIL Open Font License 1.1 (사용자가 채우는 단어)
 - 로고 글자는 기기에 설치된 American Typewriter(원작 서체)로 그리고, 없으면 Courier Prime으로 대체한다. 맥에서는 원작 서체로 보인다.
 
 ## 고지
