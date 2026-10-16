@@ -45,7 +45,7 @@ python3 -m http.server 8000
 - Instrument Serif, Courier Prime: SIL Open Font License 1.1
 - Pretendard: SIL Open Font License 1.1
 - Cutive: SIL Open Font License 1.1 (사용자가 채우는 단어)
-- 로고 글자는 기기에 설치된 American Typewriter(원작 서체)로 그리고, 없으면 Courier Prime으로 대체한다. 맥에서는 원작 서체로 보인다.
+- 포스터의 I와 NY는 1977년 원작 로고의 글자 형태를 그대로 그린다.
 
 ## 고지
 
