@@ -807,9 +807,12 @@ function renderChips(){
   $('#lineCnt').textContent=ws.length?`(${ws.length}/6)`:'';
 }
 $('#chips').addEventListener('click',e=>{const b=e.target.closest('button[data-w]');if(!b)return;const w=b.dataset.w;const ci=custom.lastIndexOf(w);if(ci>=0)custom.splice(ci,1);else removed.add(w);renderChips();drawPoster(true);});
-function fitInp(){const i=$('#inp');i.style.fontSize='';let s=.86;while(i.scrollWidth>i.clientWidth+1&&s>.42){s-=.03;i.style.fontSize=s+'em';}}
+const _fc=document.createElement('canvas').getContext('2d');
+function fitInp(){const i=$('#inp');i.style.fontSize='';let s=.86;
+  const over=()=>{if(i.value)return i.scrollWidth>i.clientWidth+1;const cs=getComputedStyle(i);_fc.font=`${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;return _fc.measureText(i.placeholder).width>i.clientWidth-2;};
+  while(over()&&s>.42){s-=.03;i.style.fontSize=s+'em';}}
 $('#inp').addEventListener('input',()=>{fitInp();$('#addBtn').disabled=!$('#inp').value.trim();drawPoster(true);});
-addEventListener('resize',fitInp);
+addEventListener('resize',fitInp);document.fonts.ready.then(fitInp);
 $('#field').addEventListener('submit',e=>{e.preventDefault();const v=$('#inp').value.trim().toUpperCase().replace(/\s+/g,' ');if(!v)return;custom.push(v);removed.delete(v);$('#inp').value='';fitInp();$('#addBtn').disabled=true;renderChips();drawPoster(true);});
 const STY=[['glaser','Gradient','Glaser palette'],['dylan','Bands','Dylan, 1967'],['original','Original','I ♥ NY, 1977']];
 $('#styles').innerHTML=STY.map(([k,a,b])=>`<button data-s="${k}" class="${k===style?'on':''}"><canvas width="88" height="80"></canvas><b>${a}</b><span>${b}</span></button>`).join('');
